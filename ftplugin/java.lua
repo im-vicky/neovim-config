@@ -49,8 +49,14 @@ local config = {
   },
   capabilities = require('blink.cmp').get_lsp_capabilities(),
   init_options = {
-    bundles = {},
+    bundles = {
+      vim.fn.glob(home .. '/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar'),
+    },
   },
 }
 
 jdtls.start_or_attach(config)
+
+require('jdtls').setup_dap({
+  hotcodereplace = 'auto',
+})
