@@ -1,8 +1,9 @@
 return {
   'Pocco81/auto-save.nvim',
-  event = 'InsertLeave', -- loads when you stop typing
   config = function()
-    require('auto-save').setup {
+    local autosave = require 'auto-save'
+
+    autosave.setup {
       enabled = true,
       execution_message = {
         message = function()
@@ -11,7 +12,7 @@ return {
         dim = 0.18,
         cleaning_interval = 1250,
       },
-      trigger_events = { 'InsertLeave', 'TextChanged' },
+      trigger_events = {}, -- disable built-in triggers
       condition = function(buf)
         local fn = vim.fn
         local utils = require 'auto-save.utils.data'
