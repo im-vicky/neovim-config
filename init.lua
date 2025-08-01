@@ -946,7 +946,6 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
-  { 'akinsho/toggleterm.nvim', version = '*', config = true },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -1038,12 +1037,6 @@ vim.keymap.set('n', '(', ':bprevious<CR>')
 vim.keymap.set('n', '<leader>w', ':w!<CR>')
 vim.keymap.set('n', '<leader>q', ':q!<CR>')
 
--- Set keymap manually (normal mode only)
-vim.keymap.set('n', '<leader>t', function()
-  require('toggleterm').toggle()
-end, { desc = 'Toggle Terminal' })
-vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
-
 -- Terminal to window above/below/left/right
 vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]], { desc = 'Terminal: Move left' })
 vim.keymap.set('t', '<C-j>', [[<C-\><C-n><C-w>j]], { desc = 'Terminal: Move down' })
@@ -1052,5 +1045,9 @@ vim.keymap.set('t', '<C-l>', [[<C-\><C-n><C-w>l]], { desc = 'Terminal: Move righ
 
 vim.keymap.set('n', ';g', '<cmd>Lspsaga code_action<CR>', { desc = 'Quick Fix (Saga)' })
 -- Keybindings to navigate diagnostics (LSP issues) in the current buffer
+vim.keymap.set('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', { desc = 'Goto Definition' })
+vim.keymap.set('n', 'gr', '<cmd>Lspsaga finder<CR>', { desc = 'Find References' })
+vim.keymap.set('n', 'gp', '<cmd>Lspsaga peek_definition<CR>', { desc = 'Peek Definition' })
+vim.keymap.set('n', '<C-r>', '<cmd>Lspsaga rename<CR>', { desc = 'Rename Symbol' })
 vim.keymap.set('n', 'e', '<cmd>Lspsaga diagnostic_jump_next<CR>', { desc = 'Next Diagnostic' })
 vim.keymap.set('n', 'E', '<cmd>Lspsaga diagnostic_jump_prev<CR>', { desc = 'Previous Diagnostic' })
