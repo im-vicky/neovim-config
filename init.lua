@@ -1052,3 +1052,7 @@ vim.keymap.set('n', 'gp', '<cmd>Lspsaga peek_definition<CR>', { desc = 'Peek Def
 vim.keymap.set('n', '<C-r>', '<cmd>Lspsaga rename<CR>', { desc = 'Rename Symbol' })
 vim.keymap.set('n', 'e', '<cmd>Lspsaga diagnostic_jump_next<CR>', { desc = 'Next Diagnostic' })
 vim.keymap.set('n', 'E', '<cmd>Lspsaga diagnostic_jump_prev<CR>', { desc = 'Previous Diagnostic' })
+vim.keymap.set('n', '<leader>Q', function()
+  vim.cmd 'bufdo bwipeout' -- Close all buffers
+  vim.cmd 'qa' -- Quit Neovim
+end, { desc = 'Close all buffers and quit' })
