@@ -5,7 +5,7 @@ return {
     require('toggleterm').setup {
       size = 20,
       open_mapping = [[<leader>t]],
-      direction = 'horizontal', -- or 'vertical' or 'float'
+      direction = 'float', -- or 'vertical' or 'float', 'horizontal'
       start_in_insert = true,
       persist_size = true,
       shade_terminals = true,

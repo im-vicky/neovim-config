@@ -1,6 +1,6 @@
 --[[
 =====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
+=================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
 ========                                    .-----.          ========
 ========         .----------------------.   | === |          ========
@@ -90,7 +90,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -457,10 +457,16 @@ require('lazy').setup({
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>f', function()
-        -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
+          winblend = 15,
+          previewer = true,
+          prompt_title = 'Buffer Search',
+          results_title = false,
+          layout_config = {
+            width = 0.6,
+            height = 0.4,
+          },
+          prompt_prefix = '🔍 ',
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
@@ -1036,7 +1042,6 @@ vim.keymap.set('v', 'L', '$', { noremap = true, silent = true })
 vim.keymap.set('n', ')', ':bnext<CR>')
 vim.keymap.set('n', '(', ':bprevious<CR>')
 vim.keymap.set('n', '<leader>w', ':w!<CR>')
-vim.keymap.set('n', '<leader>q', ':q!<CR>')
 
 -- Terminal to window above/below/left/right
 vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]], { desc = 'Terminal: Move left' })
