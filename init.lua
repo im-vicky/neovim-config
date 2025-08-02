@@ -812,6 +812,10 @@ require('lazy').setup({
         java = { 'google_java_format' },
         python = { 'isort', 'black', stop_after_first = true },
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true }, -- React JSX
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true }, -- TSX React
+        css = { 'prettierd', 'prettier', stop_after_first = true },
+        html = { 'prettierd', 'prettier', stop_after_first = true },
       },
       -- ✅ Define custom formatter
       formatters = {
