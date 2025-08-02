@@ -1091,6 +1091,10 @@ vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]], { desc = 'Terminal: Move left
 vim.keymap.set('t', '<C-j>', [[<C-\><C-n><C-w>j]], { desc = 'Terminal: Move down' })
 vim.keymap.set('t', '<C-k>', [[<C-\><C-n><C-w>k]], { desc = 'Terminal: Move up' })
 vim.keymap.set('t', '<C-l>', [[<C-\><C-n><C-w>l]], { desc = 'Terminal: Move right' })
+vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { noremap = true, silent = true })
 
 vim.keymap.set('n', ';g', '<cmd>Lspsaga code_action<CR>', { desc = 'Quick Fix (Saga)' })
 -- Keybindings to navigate diagnostics (LSP issues) in the current buffer
