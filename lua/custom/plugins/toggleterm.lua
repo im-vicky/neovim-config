@@ -4,7 +4,7 @@ return {
   config = function()
     require('toggleterm').setup {
       size = 20,
-      open_mapping = [[<leader>t]],
+      open_mapping = [[;t]],
       direction = 'float', -- or 'vertical' or 'float', 'horizontal'
       start_in_insert = true,
       persist_size = true,
