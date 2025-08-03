@@ -453,7 +453,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      -- vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>f', function()
@@ -850,12 +850,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -909,27 +909,52 @@ require('lazy').setup({
     },
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+  {
+    'ellisonleao/gruvbox.nvim',
+    priority = 1000, -- Load before other plugins
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
+      require('gruvbox').setup {
+        terminal_colors = true, -- use gruvbox colors for :terminal
+        undercurl = true,
+        underline = true,
+        bold = true,
+        italic = {
+          strings = false,
+          emphasis = true,
+          comments = true,
+          operators = true,
+          folds = true,
         },
+        contrast = 'soft', -- "hard", "soft" or empty string
+        palette_overrides = {},
+        overrides = {},
       }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd 'colorscheme gruvbox'
     end,
   },
+
+  -- { -- You can easily change to a different colorscheme.
+  --   -- Change the name of the colorscheme plugin below, and then
+  --   -- change the command in the config to whatever the name of that colorscheme is.
+  --   --
+  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  --   'folke/tokyonight.nvim',
+  --   priority = 1000, -- Make sure to load this before all the other start plugins.
+  --   config = function()
+  --     ---@diagnostic disable-next-line: missing-fields
+  --     require('tokyonight').setup {
+  --       styles = {
+  --         comments = { italic = false }, -- Disable italics in comments
+  --       },
+  --     }
+  --
+  --     -- Load the colorscheme here.
+  --     -- Like many other themes, this one has different styles, and you could load
+  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  --     vim.cmd.colorscheme 'tokyonight-night'
+  --   end,
+  -- },
+  --
   -- Tailwind highlighting
   { 'laytan/tailwind-sorter.nvim', build = 'cargo install tailwind-sorter' },
   { 'NvChad/nvim-colorizer.lua', config = true },
@@ -950,13 +975,6 @@ require('lazy').setup({
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
-
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -1082,6 +1100,7 @@ vim.keymap.set('n', 'H', '^', { noremap = true, silent = true })
 vim.keymap.set('n', 'L', '$', { noremap = true, silent = true })
 vim.keymap.set('v', 'H', '^', { noremap = true, silent = true })
 vim.keymap.set('v', 'L', '$', { noremap = true, silent = true })
+vim.keymap.set('n', 'B', '%', { noremap = true, silent = true })
 vim.keymap.set('n', ')', ':bnext<CR>')
 vim.keymap.set('n', '(', ':bprevious<CR>')
 vim.keymap.set('n', '<leader>w', ':w!<CR>')
@@ -1091,10 +1110,10 @@ vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]], { desc = 'Terminal: Move left
 vim.keymap.set('t', '<C-j>', [[<C-\><C-n><C-w>j]], { desc = 'Terminal: Move down' })
 vim.keymap.set('t', '<C-k>', [[<C-\><C-n><C-w>k]], { desc = 'Terminal: Move up' })
 vim.keymap.set('t', '<C-l>', [[<C-\><C-n><C-w>l]], { desc = 'Terminal: Move right' })
-vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { noremap = true, silent = true })
+vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true, silent = true })
 
 vim.keymap.set('n', ';g', '<cmd>Lspsaga code_action<CR>', { desc = 'Quick Fix (Saga)' })
 -- Keybindings to navigate diagnostics (LSP issues) in the current buffer
@@ -1108,4 +1127,4 @@ vim.keymap.set('n', '<leader>Q', function()
   vim.cmd 'bufdo bwipeout' -- Close all buffers
   vim.cmd 'qa' -- Quit Neovim
 end, { desc = 'Close all buffers and quit' })
-vim.api.nvim_set_keymap("n", "<leader>as", ":ASToggle<CR>", {})
+vim.api.nvim_set_keymap('n', '<leader>as', ':ASToggle<CR>', {})

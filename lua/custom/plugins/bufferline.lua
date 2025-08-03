@@ -33,11 +33,24 @@ return {
         end,
         offsets = {
           {
-            filetype = 'NvimTree',
+            filetype = 'neo-tree',
             text = ' File Explorer',
             highlight = 'Directory',
             text_align = 'left',
           },
+        },
+      },
+      highlights = {
+        buffer_selected = {
+          fg = '#ffffff', -- text color
+          underline = false, -- enable underline
+          bold = true,
+          italic = false,
+        },
+        buffer = {
+          fg = '#888888',
+          bg = '#202020',
+          underline = false,
         },
       },
     }
