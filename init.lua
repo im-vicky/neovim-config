@@ -1108,3 +1108,4 @@ vim.keymap.set('n', '<leader>Q', function()
   vim.cmd 'bufdo bwipeout' -- Close all buffers
   vim.cmd 'qa' -- Quit Neovim
 end, { desc = 'Close all buffers and quit' })
+vim.api.nvim_set_keymap("n", "<leader>as", ":ASToggle<CR>", {})
