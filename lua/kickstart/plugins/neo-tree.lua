@@ -20,19 +20,22 @@ return {
         follow_current_file = { enabled = true },
         hijack_netrw_behavior = 'open_current',
         use_libuv_file_watcher = true,
+        window = {
+          mappings = {
+            ['f'] = {
+              'fuzzy_finder',
+              config = {
+                title = 'Filter', -- An empty string hides the title
+              },
+            },
+            ['<ecs>'] = 'clear_filter', -- Ctrl+x to clear filter
+          },
+        },
       },
     }
   end,
   keys = {
     { '<leader>e', ':Neotree toggle<CR>', desc = 'NeoTree reveal', silent = true },
   },
-  opts = {
-    filesystem = {
-      window = {
-        mappings = {
-          ['<leader>e'] = 'close_window',
-        },
-      },
-    },
-  },
+  opts = {},
 }
