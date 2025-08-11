@@ -1,22 +1,26 @@
 return {
   'Pocco81/auto-save.nvim',
   config = function()
-    local autosave = require 'auto-save'
-
-    autosave.setup {
+    require('auto-save').setup {
       enabled = true,
       execution_message = {
         message = function()
           return '💾 Saved at ' .. vim.fn.strftime '%H:%M:%S'
         end,
         dim = 0.18,
-        cleaning_interval = 1250,
+        cleaning_interval = 500,
       },
-      trigger_events = { 'InsertLeave' }, -- disable built-in triggers
+      debounce_delay = 1000,
+      trigger_events = { 'InsertLeave', 'TextChanged' },
       condition = function(buf)
         local fn = vim.fn
         local utils = require 'auto-save.utils.data'
-        return fn.getbufvar(buf, '&modifiable') == 1 and utils.not_in(fn.getbufvar(buf, '&filetype'), { 'oil', 'nofile', 'quickfix' })
+        local modifiable = fn.getbufvar(buf, '&modifiable') == 1
+        local readonly = fn.getbufvar(buf, '&readonly') == 0
+        local filetype = fn.getbufvar(buf, '&filetype')
+
+        return modifiable and readonly
+          and utils.not_in(filetype, { 'oil', 'nofile', 'quickfix', 'neo-tree', 'toggleterm' })
       end,
     }
   end,

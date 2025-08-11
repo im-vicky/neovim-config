@@ -9,8 +9,8 @@ return {
     require('mini.indentscope').setup()
 
     -- Clue (keybinding helper)
-    local miniclue = require('mini.clue')
-    miniclue.setup({
+    local miniclue = require 'mini.clue'
+    miniclue.setup {
       triggers = {
         -- Leader triggers
         { mode = 'n', keys = '<Leader>' },
@@ -51,10 +51,10 @@ return {
         miniclue.gen_clues.windows(),
         miniclue.gen_clues.z(),
       },
-    })
+    }
 
     -- Simple and easy statusline
-    local statusline = require('mini.statusline')
+    local statusline = require 'mini.statusline'
 
     -- set use_icons to true if you have a Nerd Font
     statusline.setup { use_icons = vim.g.have_nerd_font }

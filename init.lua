@@ -239,13 +239,12 @@ vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true, si
 vim.keymap.set('n', ';g', '<cmd>Lspsaga code_action<CR>', { desc = 'Quick Fix (Saga)' })
 vim.keymap.set('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', { desc = 'Goto Definition' })
 vim.keymap.set('n', 'gp', '<cmd>Lspsaga peek_definition<CR>', { desc = 'Peek Definition' })
-vim.keymap.set('n', '<C-r>', '<cmd>Lspsaga rename<CR>', { desc = 'Rename Symbol' })
+vim.keymap.set('n', 'R', '<cmd>Lspsaga rename<CR>', { desc = 'Rename Symbol' })
 vim.keymap.set('n', 'e', '<cmd>Lspsaga diagnostic_jump_next<CR>', { desc = 'Next Diagnostic' })
 vim.keymap.set('n', 'E', '<cmd>Lspsaga diagnostic_jump_prev<CR>', { desc = 'Previous Diagnostic' })
 vim.keymap.set('n', '<leader>Q', function()
-  vim.cmd 'bufdo bwipeout' -- Close all buffers
-  vim.cmd 'qa' -- Quit Neovim
-end, { desc = 'Close all buffers and quit' })
+  vim.cmd 'qa'
+end, { desc = 'Quit Neovim' })
 vim.api.nvim_set_keymap('n', '<leader>as', ':ASToggle<CR>', {})
 
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
@@ -277,3 +276,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "<Esc>", "<cmd>close<cr>", { buffer = true, silent = true })
   end,
 })
+
+vim.keymap.set("n", "<leader>sm", function()
+  require("telescope.builtin").lsp_document_symbols({ symbols = { "method", "function" } })
+end, { desc = "Search Methods" })

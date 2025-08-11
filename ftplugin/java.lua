@@ -6,13 +6,13 @@ local workspace_dir = home .. '/.local/share/eclipse/' .. project_name
 
 local jdtls_path = home .. '/.local/share/nvim/mason/packages/jdtls'
 
-local function set_jdtls_keymaps(bufnr)
-  local opts = { buffer = bufnr, silent = true }
-  vim.keymap.set('n', '<leader>oi', jdtls.organize_imports, opts)
-  vim.keymap.set('n', '<leader>ev', jdtls.extract_variable, opts)
-  vim.keymap.set('n', '<leader>ec', jdtls.extract_constant, opts)
-  vim.keymap.set('v', '<leader>em', [[<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>]], opts)
-end
+-- local function set_jdtls_keymaps(bufnr)
+--   local opts = { buffer = bufnr, silent = true }
+--   vim.keymap.set('n', '<leader>oi', jdtls.organize_imports, opts)
+--   vim.keymap.set('n', '<leader>ev', jdtls.extract_variable, opts)
+--   vim.keymap.set('n', '<leader>ec', jdtls.extract_constant, opts)
+--   vim.keymap.set('v', '<leader>em', [[<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>]], opts)
+-- end
 
 local config = {
   cmd = {
@@ -75,9 +75,9 @@ local config = {
   capabilities = require('blink.cmp').get_lsp_capabilities(),
 
   -- <-- Add this on_attach callback
-  on_attach = function(client, bufnr)
-    set_jdtls_keymaps(bufnr)
-  end,
+  -- on_attach = function(client, bufnr)
+  --   set_jdtls_keymaps(bufnr)
+  -- end,
 
   init_options = {
     bundles = {
