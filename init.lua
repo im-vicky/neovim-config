@@ -280,3 +280,15 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set("n", "<leader>sm", function()
   require("telescope.builtin").lsp_document_symbols({ symbols = { "method", "function" } })
 end, { desc = "Search Methods" })
+
+-- Delete and change go to black hole register
+-- Works in normal + visual modes
+vim.keymap.set({ "n", "x" }, "d", '"_d', { noremap = true, silent = true })
+vim.keymap.set({ "n", "x" }, "c", '"_c', { noremap = true, silent = true })
+
+-- Optional: also handle dd and cc line deletes explicitly
+vim.keymap.set("n", "dd", '"_dd', { noremap = true, silent = true })
+vim.keymap.set("n", "cc", '"_cc', { noremap = true, silent = true })
+
+-- Prevent paste from overwriting the clipboard in visual mode
+vim.keymap.set("x", "p", '"_dP', { noremap = true, silent = true })
