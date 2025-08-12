@@ -175,7 +175,7 @@ require('lazy').setup({
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
+  -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -280,15 +280,3 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set("n", "<leader>sm", function()
   require("telescope.builtin").lsp_document_symbols({ symbols = { "method", "function" } })
 end, { desc = "Search Methods" })
-
--- Delete and change go to black hole register
--- Works in normal + visual modes
-vim.keymap.set({ "n", "x" }, "d", '"_d', { noremap = true, silent = true })
-vim.keymap.set({ "n", "x" }, "c", '"_c', { noremap = true, silent = true })
-
--- Optional: also handle dd and cc line deletes explicitly
-vim.keymap.set("n", "dd", '"_dd', { noremap = true, silent = true })
-vim.keymap.set("n", "cc", '"_cc', { noremap = true, silent = true })
-
--- Prevent paste from overwriting the clipboard in visual mode
-vim.keymap.set("x", "p", '"_dP', { noremap = true, silent = true })
