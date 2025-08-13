@@ -23,7 +23,7 @@ return {
         show_close_icon = true,
         show_tab_indicators = true,
         persist_buffer_sort = true,
-        separator_style = 'thick', -- options: "slant", "padded_slant", "thick", "thin", "none"
+        separator_style = 'thin', -- options: "slant", "padded_slant", "thick", "thin", "none"
         diagnostics = 'nvim_lsp', -- or "coc"
         diagnostics_indicator = function(count, level)
           if level == 'error' then

@@ -37,8 +37,8 @@ return { -- Autocompletion
     keymap = {
       preset = 'enter',
       ['<Tab>'] = { 'accept', 'fallback' },
-      ['<C-n>'] = { 'select_next', 'fallback' },
-      ['<C-p>'] = { 'select_prev', 'fallback' },
+      ['<C-j>'] = { 'select_next', 'fallback' },
+      ['<C-k>'] = { 'select_prev', 'fallback' },
       ['<CR>'] = { 'accept', 'fallback' },
       ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
       ['<C-e>'] = { 'hide', 'fallback' },
