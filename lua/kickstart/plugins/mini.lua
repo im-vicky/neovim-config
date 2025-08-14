@@ -6,7 +6,7 @@ return {
     require('mini.ai').setup { n_lines = 500 }
 
     -- Indentation scope line
-    -- require('mini.indentscope').setup()
+    require('mini.indentscope').setup()
 
     -- Clue (keybinding helper)
     local miniclue = require 'mini.clue'

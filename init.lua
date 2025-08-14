@@ -134,60 +134,7 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  {
-    'NMAC427/guess-indent.nvim',
-    event = 'BufReadPre',
-    opts = {
-      filetype_exclude = { 'java' },
-      default_indent = {
-        tabstop = 2,
-        shiftwidth = 2,
-        expandtab = true,
-      },
-    },
-    config = function(_, opts)
-      require('guess-indent').setup(opts)
-
-      -- Manually set Java indentation
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = 'java',
-        callback = function()
-          vim.bo.tabstop = 2
-          vim.bo.shiftwidth = 2
-          vim.bo.softtabstop = 2
-          vim.bo.expandtab = true
-        end,
-      })
-    end,
-  },
-  -- Tailwind highlighting
-  { 'laytan/tailwind-sorter.nvim', build = 'cargo install tailwind-sorter' },
-  { 'NvChad/nvim-colorizer.lua', config = true },
-
-  -- Formatter and Linter
-  { 'nvimtools/none-ls.nvim' }, -- null-ls replacement
-
-  -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-
-  --
-  require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.indent_line',
-  require 'kickstart.plugins.lint',
-  require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
-  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
-
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    This is the easiest way to modularize your config.
-  --
-  --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  { import = 'custom.plugins' },
-  --
-  -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
-  -- Or use telescope!
-  -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
-  -- you can continue same window with `<space>sr` which resumes last telescope search
+  { import = 'kickstart.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -266,17 +213,25 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 --
-vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd('FileType', {
   pattern = {
-    "help", "lspinfo", "qf", "man", "spectre_panel", "tsplayground",
-    "PlenaryTestPopup", "git", "checkhealth", "neotest-output",
+    'help',
+    'lspinfo',
+    'qf',
+    'man',
+    'spectre_panel',
+    'tsplayground',
+    'PlenaryTestPopup',
+    'git',
+    'checkhealth',
+    'neotest-output',
   },
   callback = function()
-    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = true, silent = true })
-    vim.keymap.set("n", "<Esc>", "<cmd>close<cr>", { buffer = true, silent = true })
+    vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = true, silent = true })
+    vim.keymap.set('n', '<Esc>', '<cmd>close<cr>', { buffer = true, silent = true })
   end,
 })
 
-vim.keymap.set("n", "<leader>sm", function()
-  require("telescope.builtin").lsp_document_symbols({ symbols = { "method", "function" } })
-end, { desc = "Search Methods" })
+vim.keymap.set('n', '<leader>sm', function()
+  require('telescope.builtin').lsp_document_symbols { symbols = { 'method', 'function' } }
+end, { desc = 'Search Methods' })

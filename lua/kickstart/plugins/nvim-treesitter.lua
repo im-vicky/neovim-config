@@ -31,8 +31,6 @@ return {
         enable = true,
         additional_vim_regex_highlighting = { 'ruby' },
       },
-      indent = { enable = true, disable = { 'ruby' } },
-
       -- This must be here, inside the same opts
       textobjects = {
         select = {
