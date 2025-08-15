@@ -12,8 +12,8 @@ return {
     require('neo-tree').setup {
       filesystem = {
         filtered_items = {
-          visible = true,
-          show_hidden_count = true,
+          visible = false,
+          show_hidden_count = false,
         },
         follow_current_file = { enabled = true },
         hijack_netrw_behavior = 'open_current',

@@ -1,5 +1,4 @@
 return {
-  { 'laytan/tailwind-sorter.nvim', build = 'cargo install tailwind-sorter' },
   { 'NvChad/nvim-colorizer.lua', config = true },
 
   -- Formatter and Linter

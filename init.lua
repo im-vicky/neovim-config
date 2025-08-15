@@ -134,7 +134,7 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  { import = 'kickstart.plugins' },
+  { import = 'plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -171,6 +171,7 @@ vim.keymap.set('n', 'B', '%', { noremap = true, silent = true })
 vim.keymap.set('n', ')', ':bnext<CR>')
 vim.keymap.set('n', '(', ':bprevious<CR>')
 vim.keymap.set('n', '<leader>w', ':w!<CR>', { desc = 'Write data' })
+vim.keymap.set('n', 'U', '<C-r>', { noremap = true, silent = true })
 
 -- Terminal to window above/below/left/right
 vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]], { desc = 'Terminal: Move left' })
@@ -231,7 +232,3 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<Esc>', '<cmd>close<cr>', { buffer = true, silent = true })
   end,
 })
-
-vim.keymap.set('n', '<leader>sm', function()
-  require('telescope.builtin').lsp_document_symbols { symbols = { 'method', 'function' } }
-end, { desc = 'Search Methods' })
