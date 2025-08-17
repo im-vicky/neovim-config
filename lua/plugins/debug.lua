@@ -5,7 +5,10 @@ return {
     'theHamsta/nvim-dap-virtual-text',
     'nvim-telescope/telescope.nvim',
     'nvim-telescope/telescope-dap.nvim',
-    'williamboman/mason.nvim',
+    {
+      'mason-org/mason.nvim',
+      opts = { ensure_installed = { 'java-debug-adapter', 'java-test' } },
+    },
     'jay-babu/mason-nvim-dap.nvim',
     'nvim-neotest/nvim-nio',
     'theHamsta/nvim-dap-virtual-text',

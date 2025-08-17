@@ -1,27 +1,55 @@
 return {
-  'stevearc/aerial.nvim',
-  opts = {
-    backends = { 'lsp', 'treesitter' },
-    layout = { min_width = 30 },
-    show_guides = true,
-    autojump = true,
-    highlight_on_hover = true,
+  desc = 'Aerial Symbol Browser',
+  {
+    'stevearc/aerial.nvim',
+    opts = function()
+      ---@type table<string, string[]>|false
+      local filter_kind = false
+
+      local opts = {
+        attach_mode = 'global',
+        backends = { 'lsp', 'treesitter', 'markdown', 'man' },
+        show_guides = true,
+        autojump = true,
+        highlight_on_hover = true,
+        layout = {
+          min_width = 30,
+          resize_to_content = false,
+          win_opts = {
+            winhl = 'Normal:NormalFloat,FloatBorder:NormalFloat,SignColumn:SignColumnSB',
+            signcolumn = 'yes',
+            statuscolumn = ' ',
+          },
+        },
+        filter_kind = filter_kind,
+        -- stylua: ignore
+        guides = {
+          mid_item   = "├╴",
+          last_item  = "└╴",
+          nested_top = "│ ",
+          whitespace = "  ",
+        },
+      }
+      return opts
+    end,
+    keys = {
+      { '<leader>o', '<cmd>AerialToggle<cr>', desc = 'Aerial (Symbols)' },
+    },
   },
-  keys = {
-    {
-      '<leader>o',
-      function()
-        vim.cmd 'AerialToggle'
-        -- If aerial window exists, focus it
-        for _, win in ipairs(vim.api.nvim_list_wins()) do
-          local buf = vim.api.nvim_win_get_buf(win)
-          if vim.bo[buf].filetype == 'aerial' then
-            vim.api.nvim_set_current_win(win)
-            break
-          end
-        end
-      end,
-      desc = 'Toggle Outline & Focus',
+
+  -- Telescope integration
+  {
+    'nvim-telescope/telescope.nvim',
+    optional = true,
+    opts = function()
+      require('telescope').load_extension 'aerial'
+    end,
+    keys = {
+      {
+        '<leader>sS',
+        '<cmd>Telescope aerial<cr>',
+        desc = 'Goto Symbol (Aerial)',
+      },
     },
   },
 }
