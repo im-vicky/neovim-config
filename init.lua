@@ -202,6 +202,7 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 vim.keymap.set('v', 'p', '"_dP')
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
+vim.keymap.set('n', 'U', '<C-r>', { noremap = true, silent = true })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
