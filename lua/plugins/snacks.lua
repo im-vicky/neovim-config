@@ -12,7 +12,7 @@ return {
       enabled = true,
       timeout = 3000,
     },
-    picker = { enabled = false },
+    picker = { enabled = true },
     quickfile = { enabled = true },
     scope = { enabled = false },
     scroll = { enabled = false },
@@ -31,57 +31,6 @@ return {
         Snacks.picker.smart()
       end,
       desc = 'Smart Find Files',
-    },
-    {
-      '<leader>n',
-      function()
-        Snacks.picker.notifications()
-      end,
-      desc = 'Notification History',
-    },
-    {
-      '<leader>sf',
-      function()
-        Snacks.picker.files()
-      end,
-      desc = 'Find Files',
-    },
-    {
-      '<leader>sr',
-      function()
-        Snacks.picker.recent()
-      end,
-      desc = 'Recent',
-    },
-    {
-      '<leader>sn',
-      function()
-        Snacks.picker.files { cwd = vim.fn.stdpath 'config' }
-      end,
-      desc = 'Find Config File',
-    },
-
-    -- Grep
-    {
-      '<leader>f',
-      function()
-        Snacks.picker.lines()
-      end,
-      desc = 'Buffer Lines',
-    },
-    {
-      '<leader>sb',
-      function()
-        Snacks.picker.grep_buffers()
-      end,
-      desc = 'Grep Open Buffers',
-    },
-    {
-      '<leader>sg',
-      function()
-        Snacks.picker.grep()
-      end,
-      desc = 'Grep',
     },
 
     -- search

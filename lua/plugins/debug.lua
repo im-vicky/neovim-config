@@ -112,5 +112,7 @@ return {
     map('n', '<leader>dl', dap.run_last, { desc = 'DAP Run Last' })
     map('n', '<leader>du', dapui.toggle, { desc = 'DAP UI Toggle' })
     map('n', '<leader>dt', dap.terminate, { desc = 'DAP Terminate' })
+    map('n', '<leader>ds', dap.run_to_cursor, { desc = 'DAP Run to cursor' })
+    map('n', '<leader>dc', dap.clear_breakpoints, { desc = 'DAP Clear breakpoints' })
   end,
 }

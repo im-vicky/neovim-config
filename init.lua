@@ -187,7 +187,6 @@ vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true, si
 vim.keymap.set('n', ';g', '<cmd>Lspsaga code_action<CR>', { desc = 'Quick Fix (Saga)' })
 vim.keymap.set('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', { desc = 'Goto Definition' })
 vim.keymap.set('n', 'gp', '<cmd>Lspsaga peek_definition<CR>', { desc = 'Peek Definition' })
-vim.keymap.set('n', 'R', '<cmd>Lspsaga rename<CR>', { desc = 'Rename Symbol' })
 vim.keymap.set('n', 'e', '<cmd>Lspsaga diagnostic_jump_next<CR>', { desc = 'Next Diagnostic' })
 vim.keymap.set('n', 'E', '<cmd>Lspsaga diagnostic_jump_prev<CR>', { desc = 'Previous Diagnostic' })
 vim.keymap.set('n', '<leader>Q', function()

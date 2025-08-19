@@ -27,6 +27,8 @@ return {
       direction = 'float',
       float_opts = {
         border = 'double',
+        width = 120,
+        height = 30,
       },
       on_open = function()
         vim.cmd 'startinsert!'
