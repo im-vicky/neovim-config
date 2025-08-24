@@ -168,8 +168,8 @@ vim.keymap.set('n', 'L', '$', { noremap = true, silent = true })
 vim.keymap.set('v', 'H', '^', { noremap = true, silent = true })
 vim.keymap.set('v', 'L', '$', { noremap = true, silent = true })
 vim.keymap.set('n', 'B', '%', { noremap = true, silent = true })
-vim.keymap.set('n', ')', ':bnext<CR>')
-vim.keymap.set('n', '(', ':bprevious<CR>')
+vim.keymap.set('n', ')', ':bnext<CR>', { desc = 'Next Buffer' })
+vim.keymap.set('n', '(', ':bprevious<CR>', { desc = 'Previous Buffer' })
 vim.keymap.set('n', '<leader>w', ':w!<CR>', { desc = 'Write data' })
 vim.keymap.set('n', 'U', '<C-r>', { noremap = true, silent = true })
 
@@ -184,24 +184,33 @@ vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { noremap = true, sil
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true, silent = true })
 
 ---- LSP Saga keybindings
-vim.keymap.set('n', ';g', '<cmd>Lspsaga code_action<CR>', { desc = 'Quick Fix (Saga)' })
-vim.keymap.set('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', { desc = 'Goto Definition' })
-vim.keymap.set('n', 'gp', '<cmd>Lspsaga peek_definition<CR>', { desc = 'Peek Definition' })
-vim.keymap.set('n', 'e', '<cmd>Lspsaga diagnostic_jump_next<CR>', { desc = 'Next Diagnostic' })
-vim.keymap.set('n', 'E', '<cmd>Lspsaga diagnostic_jump_prev<CR>', { desc = 'Previous Diagnostic' })
+vim.keymap.set('n', ';g', vim.lsp.buf.code_action, { desc = 'Quick Fix (Saga)' })
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Goto Definition' })
+
+-- Next diagnostic
+vim.keymap.set('n', 'e', function()
+  vim.diagnostic.jump { count = 1, float = true }
+end, { desc = 'Next Diagnostic' })
+
+-- Previous diagnostic
+vim.keymap.set('n', 'E', function()
+  vim.diagnostic.jump { count = -1, float = true }
+end, { desc = 'Previous Diagnostic' })
+
+vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, { desc = 'Hover Docs' })
+
 vim.keymap.set('n', '<leader>Q', function()
   vim.cmd 'qa'
 end, { desc = 'Quit Neovim' })
 vim.api.nvim_set_keymap('n', '<leader>as', ':ASToggle<CR>', {})
 
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-vim.keymap.set('v', 'p', '"_dP')
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('n', 'U', '<C-r>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Tab>', '<C-w>w', { desc = 'Jump to next window' })
+vim.keymap.set('n', '<S-Tab>', '<C-w>W', { desc = 'Jump to previous window' })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -212,27 +221,6 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
--- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
--- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
--- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
--- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
---
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = {
-    'help',
-    'lspinfo',
-    'qf',
-    'man',
-    'spectre_panel',
-    'tsplayground',
-    'PlenaryTestPopup',
-    'git',
-    'checkhealth',
-    'neotest-output',
-  },
-  callback = function()
-    vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = true, silent = true })
-    vim.keymap.set('n', '<Esc>', '<cmd>close<cr>', { buffer = true, silent = true })
-  end,
-})
+vim.keymap.set('n', '<leader>q', function()
+  vim.cmd 'q'
+end, { desc = 'Quit buffer' })

@@ -16,7 +16,6 @@ return {
     'saghen/blink.cmp',
   },
   config = function()
-
     --  This function gets run when an LSP attaches to a particular buffer.
     --    That is to say, every time a new file is opened that is associated with
     --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
@@ -174,18 +173,7 @@ return {
       --    https://github.com/pmizio/typescript-tools.nvim
       --
       -- But for many setups, the LSP (`ts_ls`) will work just fine
-      pyright = {
-        on_attach = function(client, _)
-          client.server_capabilities.documentFormattingProvider = false -- disable pyright formatting
-        end,
-      },
-      ruff = {
-        init_options = {
-          settings = {
-            args = { '--fix' }, -- auto-fix on save
-          },
-        },
-      },
+      basedpyright = {},
       ts_ls = {},
       html = {},
       cssls = {},

@@ -1,22 +1,50 @@
 return {
-  -- Collection of various small independent plugins/modules
   'echasnovski/mini.nvim',
+  version = false, -- always use latest
   config = function()
-    -- Better Around/Inside textobjects
+    -- 🔹 Textobjects (better a/i motions)
     require('mini.ai').setup { n_lines = 500 }
-
-    -- Indentation scope line
     require('mini.snippets').setup()
 
-    -- Simple and easy statusline
+    -- 🔹 Starter screen
+    require('mini.starter').setup {
+      evaluate_single = true,
+      header = '🚀 Welcome back, Vicky!',
+    }
+
+    -- 🔹 Statusline
     local statusline = require 'mini.statusline'
-
-    -- set use_icons to true if you have a Nerd Font
-    statusline.setup { use_icons = vim.g.have_nerd_font }
-
-    -- Customize section to show line and column
+    statusline.setup {
+      use_icons = vim.g.have_nerd_font,
+    }
     statusline.section_location = function()
-      return '%2l:%-2v'
+      return ' %2l │  %-2v' -- line/column with icons if nerd font available
     end
+
+    -- 🔹 Autopairs (like windwp/nvim-autopairs but lighter)
+    require('mini.pairs').setup()
+
+    -- 🔹 Commenting
+    require('mini.comment').setup()
+
+    -- 🔹 Git signs (diff in signcolumn, hunk textobjects)
+    require('mini.git').setup()
+
+    -- 🔹 Bufremove (better buffer closing than :bdelete)
+    require('mini.bufremove').setup()
+
+    -- Close current buffer (but keep window open)
+    vim.keymap.set('n', '<leader>bd', function()
+      require('mini.bufremove').delete(0, false) -- 0 = current buffer, false = don’t force
+    end, { desc = 'Delete Buffer' })
+
+    -- Force delete (useful if buffer has unsaved changes)
+    vim.keymap.set('n', '<leader>bD', function()
+      require('mini.bufremove').delete(0, true)
+    end, { desc = 'Force Delete Buffer' })
+
+    require('mini.tabline').setup()
+
+    require('mini.trailspace').setup() -- trim trailing spaces
   end,
 }

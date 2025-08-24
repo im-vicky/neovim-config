@@ -3,9 +3,6 @@ return {
   {
     'stevearc/aerial.nvim',
     opts = function()
-      ---@type table<string, string[]>|false
-      local filter_kind = false
-
       local opts = {
         attach_mode = 'global',
         backends = { 'lsp', 'treesitter', 'markdown', 'man' },
@@ -13,7 +10,7 @@ return {
         autojump = true,
         highlight_on_hover = true,
         layout = {
-          min_width = 30,
+          min_width = 40,
           resize_to_content = false,
           win_opts = {
             winhl = 'Normal:NormalFloat,FloatBorder:NormalFloat,SignColumn:SignColumnSB',
@@ -21,8 +18,19 @@ return {
             statuscolumn = ' ',
           },
         },
-        filter_kind = filter_kind,
-        -- stylua: ignore
+        -- Show only important symbol kinds
+        filter_kind = {
+          "Class",
+          "Constructor",
+          "Enum",
+          "Function",
+          "Interface",
+          "Method",
+          "Module",
+          "Namespace",
+          "Struct",
+          "Trait",
+        },
         guides = {
           mid_item   = "├╴",
           last_item  = "└╴",
