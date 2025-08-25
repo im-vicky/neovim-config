@@ -24,24 +24,11 @@ return {
     -- 🔹 Autopairs (like windwp/nvim-autopairs but lighter)
     require('mini.pairs').setup()
 
-    -- 🔹 Commenting
-    require('mini.comment').setup()
-
     -- 🔹 Git signs (diff in signcolumn, hunk textobjects)
     require('mini.git').setup()
 
     -- 🔹 Bufremove (better buffer closing than :bdelete)
     require('mini.bufremove').setup()
-
-    -- Close current buffer (but keep window open)
-    vim.keymap.set('n', '<leader>bd', function()
-      require('mini.bufremove').delete(0, false) -- 0 = current buffer, false = don’t force
-    end, { desc = 'Delete Buffer' })
-
-    -- Force delete (useful if buffer has unsaved changes)
-    vim.keymap.set('n', '<leader>bD', function()
-      require('mini.bufremove').delete(0, true)
-    end, { desc = 'Force Delete Buffer' })
 
     require('mini.tabline').setup()
 

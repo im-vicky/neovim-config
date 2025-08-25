@@ -80,17 +80,9 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
-
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -121,15 +113,6 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
--- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
@@ -221,6 +204,27 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+local bufremove = require 'mini.bufremove'
+
 vim.keymap.set('n', '<leader>q', function()
-  vim.cmd 'q'
-end, { desc = 'Quit buffer' })
+  -- If current window is quickfix, close it and return
+  if vim.fn.getwininfo(vim.fn.win_getid())[1].quickfix == 1 then
+    vim.cmd 'cclose'
+    return
+  end
+
+  -- If current window is a location list, close it and return
+  if vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
+    vim.cmd 'lclose'
+    return
+  end
+
+  -- Smart buffer delete
+  local listed = vim.fn.getbufinfo { buflisted = 1 }
+  if #listed > 1 then
+    bufremove.delete(0, false)
+  else
+    -- Only one buffer left → do nothing
+    vim.notify("Last buffer won't be closed", vim.log.levels.INFO)
+  end
+end, { desc = 'Smart quit (buffer/quickfix/loclist)' })
